@@ -1,0 +1,22 @@
+{
+  "name": "dear",
+  "version": "0.0.0",
+  "description": "oauth verification",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:MrSwitch/dear.git"
+  },
+  "keywords": [
+    "oauth"
+  ],
+  "author": "Andrew Dodson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MrSwitch/dear/issues"
+  },
+  "homepage": "https://github.com/MrSwitch/dear"
+}
