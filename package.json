@@ -1,26 +1,26 @@
 {
-	"name": "dear",
-	"version": "0.0.1",
-	"description": "oauth verification",
-	"main": "index.js",
-	"scripts": {
-		"test": "mocha -R spec ./spec/"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git@github.com:MrSwitch/dear.git"
-	},
-	"keywords": [
-		"oauth"
-	],
-	"author": "Andrew Dodson",
-	"license": "ISC",
-	"bugs": {
-		"url": "https://github.com/MrSwitch/dear/issues"
-	},
-	"homepage": "https://github.com/MrSwitch/dear",
-	"devDependencies": {
-		"mocha": "~1.20.1",
-		"expect.js": "^0.3.1"
-	}
+  "name": "dear",
+  "version": "0.0.2",
+  "description": "oauth verification",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha -R spec ./spec/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:MrSwitch/dear.git"
+  },
+  "keywords": [
+    "oauth"
+  ],
+  "author": "Andrew Dodson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MrSwitch/dear/issues"
+  },
+  "homepage": "https://github.com/MrSwitch/dear",
+  "devDependencies": {
+    "mocha": "~1.20.1",
+    "expect.js": "^0.3.1"
+  }
 }
