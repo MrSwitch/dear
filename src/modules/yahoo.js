@@ -3,10 +3,18 @@
 //
 module.exports = {
 
+	// Ensure that you define an oauth_proxy
+	oauth : {
+		version : "1.0a",
+		auth	: "https://api.login.yahoo.com/oauth/v2/request_auth",
+		request : 'https://api.login.yahoo.com/oauth/v2/get_request_token',
+		token	: 'https://api.login.yahoo.com/oauth/v2/get_token'
+	},
+
 	base	: "https://social.yahooapis.com/v1/",
 
 	get : {
-		"me"		: yql('select * from social.profile(0) where guid=me')
+		"me"	: yql('select * from social.profile(0) where guid=me')
 	},
 
 	wrap : {

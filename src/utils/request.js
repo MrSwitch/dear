@@ -8,6 +8,7 @@ var Events	= require('./events'),
 	https	= require('https'),
 	URL		= require('url'),
 	qs		= require('./querystring'),
+	oauth	= require('./oauth'),
 	error   = require('./error');
 
 
@@ -15,14 +16,47 @@ module.exports = function (opts){
 
 	// Format the response as though its for XHR
 
-	if( opts.xhr && typeof( opts.xhr ) === 'function' ){
-		opts.xhr(opts);
+	if( opts.provider.xhr && typeof( opts.provider.xhr ) === 'function' ){
+		opts.provider.xhr(opts);
 	}
 
 
-	// Format the URL request into a string
+	var url;
 
-	var url = qs(opts.url, opts.query||{} );
+	// Do we need to sign this request first?
+
+	if( opts.provider.oauth && parseInt( opts.provider.oauth.version, 10 ) === 1 ){
+
+		console.log('boom');
+
+		// This is an OAuth 1, request and therefore must be signed.
+		var client_id		= opts.provider.client_id;
+		var client_secret	= opts.provider.client_secret;
+
+		// Sign the OAuth Request
+		var token = opts.query.access_token.match(/^([^:]+)\:([^@]+)@(.+)$/);
+
+		delete opts.query.access_token;
+
+		url = qs(opts.url, opts.query||{} );
+
+		if( client_secret && token[1] && token[2] ){
+			url = oauth( url,{
+				oauth_token: token[1],
+				oauth_consumer_key : client_id
+			}, client_secret, token[2], null, opts.method.toUpperCase(), opts.data);
+		}
+
+	}
+	else{
+
+		// Format the URL request into a string
+
+		url = qs(opts.url, opts.query||{} );
+
+	}
+
+
 
 
 	// Initiate the Event object

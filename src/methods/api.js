@@ -172,7 +172,7 @@ module.exports = function(){
 		headers : p.headers,
 
 		// Add the providers processing script
-		xhr : provider.xhr
+		provider : provider
 
 	}).on('uploadprogress', function(res){
 		self.emit('uploadprogress', res);
