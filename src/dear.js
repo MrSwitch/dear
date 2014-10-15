@@ -3,7 +3,6 @@
 //
 
 var Events = require('./utils/events');
-var oauth  = require('./utils/oauth');
 
 
 function dear(network){

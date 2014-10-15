@@ -4,7 +4,8 @@
   "description": "oauth verification",
   "main": "index.js",
   "scripts": {
-    "test": "mocha -R spec ./spec/"
+    "test": "mocha -R spec ./spec/**/*.js",
+    "start": "browserify index.js --standalone dear > dist/dear.js"
   },
   "repository": {
     "type": "git",
@@ -20,7 +21,17 @@
   },
   "homepage": "https://github.com/MrSwitch/dear",
   "devDependencies": {
-    "mocha": "~1.20.1",
+    "mocha": "^1.21.5",
     "expect.js": "^0.3.1"
+  },
+  "browser": {
+    "./src/utils/request.js": "./src/browser/request.js"
+  },
+  "testling": {
+    "harness": "mocha-bdd",
+    "files": "./spec/utils/*.js",
+    "browsers": [
+      "chrome/latest"
+    ]
   }
 }
