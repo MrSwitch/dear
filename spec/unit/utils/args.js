@@ -1,4 +1,4 @@
-var args = require('../../src/utils/args');
+var args = require('../../../src/utils/args');
 var expect = require("expect.js");
 
 

@@ -14,6 +14,13 @@ var Events	= require('./events'),
 
 module.exports = function (opts){
 
+	return module.exports.fn.apply(this, arguments);
+
+};
+
+
+module.exports.fn = function(opts){
+
 	// Format the response as though its for XHR
 
 	if( opts.provider.xhr && typeof( opts.provider.xhr ) === 'function' ){
