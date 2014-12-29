@@ -67,6 +67,12 @@ describe('dear.api()', function(){
 
 	});
 
+	it('should return a promise', function(){
+
+		expect( dear('test').api() ).to.have.property( 'then' );
+
+	});
+
 
 	it('should be available via `dear.api` or `dear( network ).api`', function(){
 
@@ -95,7 +101,7 @@ describe('dear.api()', function(){
 		it('should trigger an error code invalid_arguments, when called with no data', function(done){
 
 			// Should 
-			dear('test').api().on('error', errorObject('invalid_arguments', done) );
+			dear('test').api().then( null, errorObject('invalid_arguments', done) );
 
 		});
 
@@ -103,7 +109,7 @@ describe('dear.api()', function(){
 		it('should trigger an error code required_path, when there is no path attribute', function(done){
 
 			// Should 
-			dear('test').api('').on('error', errorObject('required_path', done) );
+			dear('test').api('').then( null, errorObject('required_path', done) );
 
 		});
 
@@ -111,7 +117,7 @@ describe('dear.api()', function(){
 		it('should trigger an error code invalid_network, when called with a non-recognised network', function(done){
 
 			// Should 
-			dear('wrong').api('path').on('error', errorObject('invalid_network', done) );
+			dear('wrong').api('path').then( null, errorObject('invalid_network', done) );
 
 		});
 
@@ -139,7 +145,7 @@ describe('dear.api()', function(){
 		it('should trigger a success event, with the response', function(done){
 
 			// Should
-			dear('test.api').api('me').on('success', function(res){
+			dear('test.api').api('me').then( function(res){
 
 				expect( res ).to.be.eql( mock_response['me'] );
 
@@ -153,7 +159,7 @@ describe('dear.api()', function(){
 			// Should
 			dear('test.api').api('query',{
 				access_token : 'secret'
-			}).on('success', function(res){
+			}).then( function(res){
 
 				expect( res.request ).to.contain( 'access_token=secret' );
 

@@ -4,9 +4,9 @@
 
 
 module.exports = function(code,message){
-	var self = this;
+	var promise = this;
 	process.nextTick(function(){
-		self.emit('error complete',{
+		promise.reject({
 			error : {
 				code : code,
 				message : message

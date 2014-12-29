@@ -2,10 +2,11 @@
 // dear api method
 //
 
-var args   = require('../utils/args');
-var request   = require('../utils/request');
-var extend   = require('../utils/extend');
-var error = require('../utils/error');
+var args    = require('../utils/args');
+var request = require('../utils/request');
+var Then    = require('../utils/then');
+var extend  = require('../utils/extend');
+var error   = require('../utils/error');
 
 
 module.exports = function(){
@@ -13,6 +14,11 @@ module.exports = function(){
 	// Create a new service
 
 	var self = this.use();
+
+
+	// Create a promise
+	
+	var promise = Then();
 
 
 	//
@@ -30,7 +36,7 @@ module.exports = function(){
 
 	// There has to be an object
 	if(!p){
-		return error.call( self, "invalid_arguments", "Could not interpret the incoming parameters" );
+		return error.call( promise, "invalid_arguments", "Could not interpret the incoming parameters" ).proxy;
 	}
 
 
@@ -55,9 +61,9 @@ module.exports = function(){
 
 
 	// Add the callback
-	
 	if( p.callback ){
-		self.on('complete', p.callback);
+		// bind to both the fullfill and reject case
+		promise.proxy.then(p.callback,p.callback);
 	}
 
 
@@ -79,7 +85,7 @@ module.exports = function(){
 
 
 	if( !p.path ){
-		return error.call( self, "required_path", "Missing the path parameter" );
+		return error.call( promise, "required_path", "Missing the path parameter" ).proxy;
 	}
 
 
@@ -93,7 +99,7 @@ module.exports = function(){
 	var provider = self.services[p.network];
 
 	if( !provider ){
-		return error.call( self, "invalid_network", "Could not match the service requested: " + p.network );
+		return error.call( promise, "invalid_network", "Could not match the service requested: " + p.network ).proxy;
 	}
 
 
@@ -137,13 +143,18 @@ module.exports = function(){
 			delete p.data[key];
 		}
 		else if(typeof(defaults) === 'undefined'){
-			error.call(self, "missing_attribute_"+key, "The attribute " + key + " is missing from the request" );
+			error.call(promise, "missing_attribute_"+key, "The attribute " + key + " is missing from the request" );
 
 			return '';
 		}
 		return val;
 	});
 
+
+	// If an error has been thrown already return
+	if( promise.state ){
+		return promise.proxy;
+	}
 
 
 	// Add base
@@ -175,9 +186,9 @@ module.exports = function(){
 		provider : provider
 
 	}).on('uploadprogress', function(res){
-		self.emit('uploadprogress', res);
+		p.onuploadprogress && p.onuploadprogress(res);
 	}).on('progress', function(res){
-		self.emit('progress', res);
+		p.onprogress && p.onprogress(res);
 	}).on('end error', function(r, headers){
 
 
@@ -208,10 +219,15 @@ module.exports = function(){
 		//
 		// Dispatch to listeners
 		// Emit events which pertain to the formatted response
-		self.emit("complete " + (!r || "error" in r ? 'error' : 'success'), r);
+		if( !r || "error" in r ){
+			promise.reject(r);
+		}
+		else{
+			promise.fulfill(r);
+		}
 
 	});
 
 
-	return self;
+	return promise.proxy;
 };
