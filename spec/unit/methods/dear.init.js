@@ -2,7 +2,7 @@
 // Test dear
 //
 
-var dear = require('../src/dear.js');
+var dear = require('../../../src/dear');
 var expect = require("expect.js");
 
 

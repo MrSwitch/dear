@@ -4,7 +4,7 @@
   "description": "oauth verification",
   "main": "index.js",
   "scripts": {
-    "test": "mocha -R spec ./spec/**/*.js",
+    "test": "mocha ./spec/**/*.js --ui bdd",
     "start": "browserify index.js --standalone dear > dist/dear.js"
   },
   "repository": {
@@ -29,9 +29,16 @@
   },
   "testling": {
     "harness": "mocha-bdd",
-    "files": "./spec/utils/*.js",
+    "files": "./spec/**/*.js",
     "browsers": [
-      "chrome/latest"
+      "ie/6..latest",
+      "chrome/22..latest",
+      "firefox/16..latest",
+      "safari/latest",
+      "opera/11.0..latest",
+      "iphone/6",
+      "ipad/6",
+      "android-browser/latest"
     ]
   }
 }

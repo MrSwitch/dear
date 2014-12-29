@@ -2,11 +2,10 @@
 // Spec dear.api
 //
 
-var dear = require('../src/dear.js');
-var param = require('../src/utils/param.js');
+var dear = require('../../../src/dear');
+var request = require('../../../src/utils/request');
+var param = require('../../../src/utils/param');
 var expect = require("expect.js");
-var http = require("http");
-var url = require("url");
 
 var mock_response = {
 	'me' : {
@@ -22,31 +21,6 @@ describe('dear.api()', function(){
 
 	var port = 3333;
 	var localhost = 'http://localhost:'+port+'/';
-	var srv;
-
-	before(function(done){
-		srv = http.createServer(function(req,res){
-
-			var path = req.url.replace(/^\//,'');
-
-			var json = mock_response[path] || {};
-
-			json.request = req.url;
-
-			res.end(JSON.stringify( json ));
-
-		}).listen(port, function(){
-//			console.log(localhost + " connected");
-			done();
-		});
-	});
-
-	after(function(done){
-		srv.close(function(){
-			done();
-		});
-	});
-
 
 	before(function(){
 		dear.init({
@@ -124,11 +98,23 @@ describe('dear.api()', function(){
 	});
 
 
-	describe('requests', function(){
+	describe('request mocked', function(){
+
+		var _request = request.fn;
 
 		before(function(){
 
-			// Setup the test environment with meta data
+			request.fn = function(p){
+				this.on = function(_event, handler){
+					if(_event.match(/\bend\b/)){
+						setTimeout(function(){
+							handler(p);
+						});
+					}
+					return this;
+				};
+				return this;
+			};
 
 			dear.init({
 				'test.api' : {
@@ -142,26 +128,42 @@ describe('dear.api()', function(){
 		});
 
 
-		it('should trigger a success event, with the response', function(done){
+		after(function(){
+
+			request.fn = _request;
+
+		});
+
+
+		it('should pass through a complete event once the request has been fullfilled', function(done){
 
 			// Should
 			dear('test.api').api('me').then( function(res){
 
-				expect( res ).to.be.eql( mock_response['me'] );
+				expect( res ).to.be.an( Object );
+				expect( res.url ).to.eql( localhost + 'me' );
+				expect( res.method ).to.eql( 'get' );
 
 				done();
 			});
 
 		});
 
-		it('should convert data to URI query', function(done){
+		it('should define the request properties, url, method, query', function(done){
+
+			var query = {
+				access_token : 'secret'
+			};
 
 			// Should
-			dear('test.api').api('query',{
-				access_token : 'secret'
-			}).then( function(res){
+			dear('test.api')
+			.api('query',query)
+			.then( function(res){
 
-				expect( res.request ).to.contain( 'access_token=secret' );
+				expect( res ).to.be.an( Object );
+				expect( res.url ).to.eql( localhost + 'query' );
+				expect( res.method ).to.eql( 'get' );
+				expect( res.query ).to.eql( query );
 
 				done();
 			});
