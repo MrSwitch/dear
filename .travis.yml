@@ -1,3 +1,11 @@
 language: node_js
-node_js:
-  - "0.10"
+node_js: 
+- "0.10"
+deploy: 
+  provider: npm
+  email: andrewjdodson@gmail.com
+  api_key: 
+    secure: QF6MtpQKzJ8Cg+w33odoKDWd8fqg34ySaHwNoIha/31DU28/LfhJE7ikvTLJndMQ6wlcbpI3G41Tg72MbbO30fYxA8a9BXm9Udht3ENAcfGbbDamhfW2u46zBoKM8X1D5eppYUTdNjI/TZOosDsnfM7qxEKcXTXE+gjFG2w33/k=
+  "on": 
+    tags: true
+    repo: MrSwitch/dear
