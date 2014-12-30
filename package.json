@@ -1,6 +1,6 @@
 {
   "name": "dear",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "oauth verification",
   "main": "index.js",
   "scripts": {
