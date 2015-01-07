@@ -174,22 +174,18 @@ module.exports = function(){
 
 
 	// Make request
+	p.url = url;
+	p.provider = provider;
 
-	request({
-		url : url,
-		method : p.method,
-		query : p.query,
-		data : p.data,
-		headers : p.headers,
 
-		// Add the providers processing script
-		provider : provider
-
-	}).on('uploadprogress', function(res){
+	request(p)
+	.on('uploadprogress', function(res){
 		p.onuploadprogress && p.onuploadprogress(res);
-	}).on('progress', function(res){
+	})
+	.on('progress', function(res){
 		p.onprogress && p.onprogress(res);
-	}).on('end error', function(r, headers){
+	})
+	.on('end error', function(r, headers){
 
 
 		// FORMAT RESPONSE?
@@ -207,6 +203,7 @@ module.exports = function(){
 				r = b;
 			}
 		}
+
 
 		// Is there a next_page defined in the response?
 		if( r && "paging" in r && r.paging.next ){

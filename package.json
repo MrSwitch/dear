@@ -1,6 +1,6 @@
 {
   "name": "dear",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "description": "oauth verification",
   "main": "index.js",
   "scripts": {
@@ -20,6 +20,9 @@
     "url": "https://github.com/MrSwitch/dear/issues"
   },
   "homepage": "https://github.com/MrSwitch/dear",
+  "dependencies": {
+    "hellojs": ">=1.4.0"
+  },
   "devDependencies": {
     "mocha": "^1.21.5",
     "expect.js": "^0.3.1"

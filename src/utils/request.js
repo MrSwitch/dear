@@ -24,7 +24,7 @@ module.exports.fn = function(opts){
 	// Format the response as though its for XHR
 
 	if( opts.provider.xhr && typeof( opts.provider.xhr ) === 'function' ){
-		opts.provider.xhr(opts);
+		opts.provider.xhr(opts, opts.query);
 	}
 
 
@@ -33,8 +33,6 @@ module.exports.fn = function(opts){
 	// Do we need to sign this request first?
 
 	if( opts.provider.oauth && parseInt( opts.provider.oauth.version, 10 ) === 1 ){
-
-		console.log('boom');
 
 		// This is an OAuth 1, request and therefore must be signed.
 		var client_id		= opts.provider.client_id;
