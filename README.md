@@ -72,4 +72,5 @@ The specs of `dear` methods are defined in [Travis CI](https://travis-ci.org/MrS
 
 # Note
 
-Because this project ports javascript from HelloJS which is a clientside library, it was neccessary to include `hello` in the global namespace. We hope to be able to migrate away from this at some point.
+This project inherits code from a clientside javascript project [HelloJS](https://github.com/MrSwitch/hello.js). It is therefore neccessary to include `hello` in the global namespace. It is hoped that this will no longer be the case in future.
+
