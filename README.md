@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/MrSwitch/dear.svg?branch=master)](https://travis-ci.org/MrSwitch/dear)
 
 
 # dear Web APIs
