@@ -4,7 +4,7 @@
 `dear` is a npm package which standardizes requests to many known API's. It inherits endpoints used by the [HelloJS](http://adodson.com/hello.js) project and makes them available within Node environments.
 
 [![NPM Version][npm-image]][npm-url]
-[![Build Status][travis-img]][travis-url]
+[![Build Status][travis-image]][travis-url]
 
 
 # methods
