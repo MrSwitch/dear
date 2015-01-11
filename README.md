@@ -3,7 +3,8 @@
 
 `dear` is a npm package which standardizes requests to many known API's. It inherits endpoints used by the [HelloJS](http://adodson.com/hello.js) project and makes them available within Node environments.
 
-[![Build Status](https://travis-ci.org/MrSwitch/dear.svg?branch=master)](https://travis-ci.org/MrSwitch/dear)
+[![NPM Version][npm-image]][npm-url]
+[![Build Status][travis-img]][travis-url]
 
 
 # methods
@@ -77,3 +78,8 @@ The specs of `dear` methods are defined in [Travis CI](https://travis-ci.org/MrS
 
 This project inherits code from a clientside javascript project [HelloJS](https://github.com/MrSwitch/hello.js). It is therefore neccessary to include `hello` in the global namespace. It is hoped that this will no longer be the case in future.
 
+
+[npm-image]: https://img.shields.io/npm/v/dear.svg?style=flat&branch=master
+[npm-url]: https://npmjs.org/package/dear
+[travis-image]: https://img.shields.io/travis/MrSwitch/dear.svg?style=flat
+[travis-url]: https://travis-ci.org/MrSwitch/dear
