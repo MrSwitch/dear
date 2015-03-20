@@ -28,7 +28,7 @@ describe('hello.api("/me")', function () {
 		expect: {
 			id: "100008806508341",
 			name: "Jane McGee",
-			thumbnail: "http://graph.facebook.com/100008806508341/picture"
+			thumbnail: "https://graph.facebook.com/100008806508341/picture"
 		},
 		errorExpect: {
 			code: 190,
@@ -106,7 +106,7 @@ describe('hello.api("/me")', function () {
 		expect: {
 			id: 2961707375,
 			name: "Jane McGee",
-			thumbnail: "http://pbs.twimg.com/profile_images/552017091583152128/a8lyS35y_normal.jpeg"
+			thumbnail: "https://pbs.twimg.com/profile_images/552017091583152128/a8lyS35y_normal.jpeg"
 		},
 		errorExpect: {
 			code: "request_failed",
@@ -175,13 +175,13 @@ describe('hello.api("/me")', function () {
 					}
 				)
 				.then( function (me) {
-
 					expect(me.id).to.be(test.expect.id);
 					expect(me.name).to.be(test.expect.name);
 					expect(me.thumbnail).to.be(test.expect.thumbnail);
 					done();
 
-				});
+				})
+				.then(null, done);
 			});
 
 		});
