@@ -1,4 +1,3 @@
-
 # dear web apis
 
 `dear` is a npm package which standardizes requests to many known API's. It inherits endpoints used by the [HelloJS](http://adodson.com/hello.js) project and makes them available within Node environments.
@@ -7,14 +6,14 @@
 [![Build Status][travis-image]][travis-url]
 
 
-# methods
+## methods
 
 * `dear.init` - Configure a web service
 * `dear.api` - Make HTTP requests
 
 
 
-# use case
+## use case
 
 A typical use case might be to verify a users email address. If you have signed the user in the browser (via HelloJS for example) the client will have received an OAuth2 "access_token". This token can be used to make API requests for the data in the server. So, if the token can be delievered to the server, then the users credentials can be verified.
 
@@ -47,10 +46,10 @@ For example the request would look like `HTTP /register?access_token=1212121&net
 
 
 
-# setup
+## setup
 
 
-## Signing OAuth1 requests
+### Signing OAuth1 requests
 
 OAuth1 is supported by a number of services. These must be signed with a secret key to create a unique requests each and every time. Therefore for those we must register the secret before making any API requests.
 
@@ -66,7 +65,7 @@ If HelloJS was *not* used to generate the `access_token`'s for an OAuth1 service
 
 
 
-# specs / docs
+## specs / docs
 
 For requests made by `dear.api` please refer to [hello.api](http://adodson.com/hello.js/#helloapi).
 
@@ -74,7 +73,7 @@ The specs of `dear` methods are defined in [Travis CI](https://travis-ci.org/MrS
 
 
 
-# note
+## note
 
 This project inherits code from a clientside javascript project [HelloJS](https://github.com/MrSwitch/hello.js). It is therefore neccessary to include `hello` in the global namespace. It is hoped that this will no longer be the case in future.
 
