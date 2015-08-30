@@ -25,7 +25,8 @@
   },
   "devDependencies": {
     "mocha": "^1.21.5",
-    "expect.js": "^0.3.1"
+    "expect.js": "^0.3.1",
+    "define": "1.0.1"
   },
   "browser": {
     "./src/utils/request.js": "./src/browser/request.js"
