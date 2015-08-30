@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/MrSwitch/dear",
   "dependencies": {
-    "hellojs": ">=1.4.0"
+    "hellojs": "^1.7.5"
   },
   "devDependencies": {
     "mocha": "^1.21.5",

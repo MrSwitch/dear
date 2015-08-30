@@ -67,6 +67,18 @@ module.exports = function(){
 	}
 
 
+	// If get, put all parameters into query
+	if( p.method === 'get' || p.method === 'delete' ){
+		extend( p.query, p.data );
+		p.data = {};
+	}
+
+
+	// Default data = {}
+
+	p.options = extend({},p.query);
+
+
 	// Path
 	// Remove the network from path, e.g. facebook:/me/friends
 	// results in { network : facebook, path : me/friends }
@@ -129,18 +141,24 @@ module.exports = function(){
 	// If the url is a function it needs to be specially handled
 	if( typeof( url ) === 'function' ){
 		// Process the path in the function
-		url = url(p);
+		url = url( p, action.bind( null, p ) );
+	}
+	// If the URL exists
+	if(url){
+		action( p, url );
 	}
 
+
+	function action(p, url){
 
 	// Format the string if it needs it
 	// Replace typical parameters will their counterparts
 
 	url = url.replace(/\@\{([a-z\_\-]+)(\|.+?)?\}/gi, function(m,key,defaults){
 		var val = defaults ? defaults.replace(/^\|/,'') : '';
-		if(key in p.data){
-			val = p.data[key];
-			delete p.data[key];
+		if(key in p.query){
+			val = p.query[key];
+			delete p.query[key];
 		}
 		else if(typeof(defaults) === 'undefined'){
 			error.call(promise, "missing_attribute_"+key, "The attribute " + key + " is missing from the request" );
@@ -154,6 +172,13 @@ module.exports = function(){
 	// If an error has been thrown already return
 	if( promise.state ){
 		return promise.proxy;
+	}
+
+	// If get, put all parameters into query
+
+	if( p.method === 'get' || p.method === 'delete' ){
+		extend( p.query, p.data );
+		p.data = {};
 	}
 
 
@@ -187,7 +212,6 @@ module.exports = function(){
 	})
 	.on('end error', function(r, headers){
 
-
 		// FORMAT RESPONSE?
 		// Does self request have a corresponding formatter
 		if( provider.wrap && ( (p.path in provider.wrap) || ("default" in provider.wrap) )){
@@ -216,6 +240,7 @@ module.exports = function(){
 		//
 		// Dispatch to listeners
 		// Emit events which pertain to the formatted response
+
 		if( !r || "error" in r ){
 			promise.reject(r);
 		}
@@ -225,6 +250,7 @@ module.exports = function(){
 
 	});
 
+	}
 
 	return promise.proxy;
 };
